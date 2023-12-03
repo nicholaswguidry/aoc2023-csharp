@@ -13,11 +13,14 @@ class Program
             {
                 // do something here for each line of the input, `s`
 
+                //parse the integer in the digit-only substring until we hit the first `:`
+                //gameString is the string of the game number
+                string gameString = Regex.Match(s.Substring(0, s.IndexOf(':')), @"\d+").Value;
+
+                int firstInt = int.Parse(gameString);
+                Console.WriteLine($"This is Game: {firstInt}");
 
             }
-
-            int[] myArray = { 2, 3, 1, 6, 4 };
-            Console.WriteLine($"Max is {myArray.Max()}");
         }
     }
 }
