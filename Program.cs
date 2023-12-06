@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 
 class Program
@@ -18,27 +19,34 @@ class Program
 
             //get the digits of line 0
             Match[] times = Regex.Matches(lines[0], @"\d+").Cast<Match>().ToArray();
+
+            UInt64 time = UInt64.Parse(String.Join("", times.ToList()));
+
+
             //get the digits of line 1
             Match[] distances = Regex.Matches(lines[1], @"\d+").Cast<Match>().ToArray();
-            int winProduct = 1;
+            UInt64 distance = UInt64.Parse(String.Join("", distances.ToList()));
+            // int winProduct = 1;
 
-            for (int i = 0; i < times.Length; i++)
+            // for (int i = 0; i < times.Length; i++)
+            // {
+            int startTick = Environment.TickCount;
+            int winning = 0;
+            for (UInt64 j = 1; j < time; j++)
             {
-                int winning = 0;
-                for (int j = 1; j < int.Parse(times[i].Value); j++)
+
+                UInt64 movementTime = time - j;
+                if (j * movementTime > distance)
                 {
-
-                    int movementTime = int.Parse(times[i].Value) - j;
-                    if (j * movementTime > int.Parse(distances[i].Value))
-                    {
-                        winning++;
-                    }
+                    winning++;
                 }
-
-                winProduct *= winning;
-
             }
-            Console.WriteLine($"Product is {winProduct}");
+
+            //     winProduct *= winning;
+
+            // }
+            Console.WriteLine($"ways is {winning}");
+            Console.WriteLine($"it took is {Environment.TickCount - startTick}");
         }
     }
 }
