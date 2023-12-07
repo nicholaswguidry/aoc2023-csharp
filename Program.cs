@@ -1,5 +1,5 @@
 ﻿
-using DayNamespace;
+using DayFunctions;
 
 class Program
 {
@@ -14,33 +14,35 @@ class Program
             return;
         }
 
+        int start = Environment.TickCount;
+
         string path = "./" + args[0] + "/input.txt";
         List<string> lines = GetLines(path);
 
         string result = "";
-        int start = Environment.TickCount;
+
         switch (args[0].Replace("Test", "") + args[1])
         {
             case "Day1Part1":
-                result = DayFunctions.Day1Part1(lines);
+                result = Day1.Part1(lines);
                 break;
             case "Day1Part2":
-                result = DayFunctions.Day1Part2(lines);
+                result = Day1.Part2(lines);
                 break;
 
             case "Day2Part1":
-                result = DayFunctions.Day2Part1(lines);
+                result = Day2.Part1(lines);
                 break;
             case "Day2Part2":
-                result = DayFunctions.Day2Part2(lines);
+                result = Day2.Part2(lines);
                 break;
 
             case "Day6Part1":
-                result = DayFunctions.Day6Part1(lines);
+                result = Day6.Part1(lines);
                 break;
 
             case "Day6Part2":
-                result = DayFunctions.Day6Part2(lines);
+                result = Day6.Part2(lines);
                 break;
 
             default:
@@ -87,6 +89,10 @@ class Program
         Directory.CreateDirectory(path);
         inputPath = path + "/input.txt";
         File.Create(inputPath);
+
+        string dayTemplatePath = "./DayTemplate.cs";
+        // copy the template to the new day
+        File.Copy(dayTemplatePath, "./" + day + ".cs");
 
     }
 }
